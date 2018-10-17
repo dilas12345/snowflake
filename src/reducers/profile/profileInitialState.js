@@ -21,24 +21,56 @@ const {Record} = require('immutable')
  * The fields are what display on the UI
  */
 const Form = Record({
+  // originalProfile: new (Record({
+  //   username: null,
+  //   email: null,
+  //   objectId: null,
+  //   emailVerified: null
+  // }))(),
   originalProfile: new (Record({
-    username: null,
-    email: null,
+    firstname: null,
+    surname: null,
+    last6nin: null,
+    oldnumber: null,
+    currentnumber: null,
     objectId: null,
-    emailVerified: null
+    currentnumberVerified: null
   }))(),
+
   disabled: false,
   error: null,
   isValid: false,
   isFetching: false,
+  // fields: new (Record({
+  //   username: '',
+  //   usernameHasError: false,
+  //   usernameErrorMsg: '',
+  //   email: '',
+  //   emailHasError: false,
+  //   emailErrorMsg: '',
+  //   emailVerified: false
+  // }))()
   fields: new (Record({
-    username: '',
-    usernameHasError: false,
-    usernameErrorMsg: '',
-    email: '',
-    emailHasError: false,
-    emailErrorMsg: '',
-    emailVerified: false
+    firstname: '',
+    firstnameHasError: false,
+    firstnameErrorMsg: '',
+    surname: '',
+    surnameHasError: false,
+    surnameErrorMsg: '',
+    nin: '',
+    ninHasError: false,
+    ninErrorMsg: '',
+    dob: '',
+    dobHasError: false,
+    dobErrorMsg: '',
+    registernumber: '',
+    registernumberHasError: false,
+    registernumberErrorMsg: '',
+    currentnumber: '',
+    currentnumberHasError: false,
+    currentnumberErrorMsg: '',
+    currentnumberVerified:false
+
   }))()
 })
 

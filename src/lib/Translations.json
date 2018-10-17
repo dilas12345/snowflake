@@ -12,7 +12,7 @@
       "subview": "子视图",
       "back": "返回"
     },
-    "Snowflake": {
+    "Vscproximity": {
       "logout": "注销",
       "main": "主页",
       "profile":"个人信息"
@@ -49,10 +49,11 @@
       "register": "注册"
     },
     "FieldValidation": {
-      "valid_user_name": "请输入6-12个字母或数字",
-      "valid_email": "请提供有效邮箱地址",
-      "valid_password": "请输入6-12个数字和特殊字符: !@#$%^&*",
-      "valid_password_again": "密码不匹配"
+      "valid_first_name": "名字",
+      "valid_surname": "姓",
+      "valid_last6nin": "最後6 nin",
+      "valid_year": "年",
+      "valid_current_number": "目前的號碼"
     }
   },
   "en": {
@@ -68,7 +69,7 @@
       "subview": "Subview",
       "back": "Back"
     },
-    "Snowflake": {
+    "Vscproximity": {
       "logout": "Log out",
       "main": "Main",
       "profile":"Profile"
@@ -105,10 +106,11 @@
       "register": "Register"
     },
     "FieldValidation": {
-      "valid_user_name": "6-12 in length with letters or numbers",
-      "valid_email": "Provide valid email",
-      "valid_password": "6-12 in length, with a number and special character: !@#$%^&*",
-      "valid_password_again": "Passwords must match"
+      "valid_first_name": "Firstname",
+      "valid_surname": "Surname",
+      "valid_last6nin": "Last 6 Digit of NIN",
+      "valid_year": "Number Registered at NIMC",
+      "valid_current_number": "Current Number"
     }
   },
   "fr": {
@@ -124,7 +126,7 @@
       "subview": "Sous-vue",
       "back": "Arrière"
     },    
-    "Snowflake": {
+    "Vscproximity": {
       "logout": "Se déconnecter",
       "main": "Principal",
       "profile":"Profil"
@@ -161,10 +163,11 @@
       "register": "Registre"
     },
     "FieldValidation": {
-      "valid_user_name": "6-12 de longueur avec des lettres ou des chiffres",
-      "valid_email": "Fournir email valide",
-      "valid_password": "6-12 en longueur, avec un nombre et un caractère spécial: !@#$%^&*",
-      "valid_password_again": "les mots de passe doivent correspondre"
+      "valid_first_name": "Prénom",
+      "valid_surname": "Nom de famille",
+      "valid_last6nin": "SLaurname",
+      "valid_year": "Année",
+      "valid_current_number": "Numéro actuel"
     }    
   },
   "es": {
@@ -180,7 +183,7 @@
       "subview": "Subview",
       "back": "Regresar"
     },    
-    "Snowflake": {
+    "Vscproximity": {
       "logout": "Cerrar sesión",
       "main": "Principal",
       "profile":"Perfil"
@@ -217,10 +220,11 @@
       "register": "Registrarse"
     },
     "FieldValidation": {
-      "valid_user_name": "6-12 de longitud con letras o números",
-      "valid_email": "Proveer de correo electrónico válida",
-      "valid_password": "6-12 de longitud, con un número y carácter especial: !@#$%^&*",
-      "valid_password_again": "Las contraseñas deben coincidir"
+      "valid_first_name": "Nombre de pila",
+      "valid_surname": "apellido",
+      "valid_last6nin": "últimos 6 nin",
+      "valid_year": "año",
+      "valid_current_number": "actual número"
     }    
   }
 

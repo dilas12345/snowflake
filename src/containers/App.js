@@ -74,9 +74,10 @@ var styles = StyleSheet.create({
     padding: 10
   },
   summary: {
-    fontFamily: 'BodoniSvtyTwoITCTT-Book',
-    fontSize: 18,
-    fontWeight: 'bold'
+    fontFamily: 'Raleway-Regular',
+    fontSize: 10,
+    fontWeight: 'bold',
+    alignSelf: 'center'
   }
 })
 
@@ -116,7 +117,7 @@ let App = React.createClass({
           onGetState={this.props.actions.getState}
           onSetState={this.props.actions.setState} />
 
-        <Text style={styles.summary}>Snowflake {I18n.t('App.version')}:{this.props.deviceVersion}</Text>
+        <Text style={styles.summary}>VSCproximity {I18n.t('App.version')}:{this.props.deviceVersion}</Text>
 
       </View>
     )

@@ -39,27 +39,6 @@ import
  * Project component that will respond to onPress
  */
 const FormButton = require('./FormButton')
-/**
- * ## Styles
- */
-var styles = StyleSheet.create({
-  container: {
-    flexDirection: 'column',
-    flex: 1,
-    marginTop: 10
-  },
-  header: {
-    marginTop: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'transparent'
-  },
-  mark: {
-    height: 100,
-    width: 100
-  }
-
-})
 
 /**
  * ### Translations
@@ -68,7 +47,34 @@ var I18n = require('react-native-i18n')
 import Translations from '../lib/Translations'
 I18n.translations = Translations
 
+// const labels = ["step1"];
+
+const customStyles = {
+  stepIndicatorSize: 30,
+  currentStepIndicatorSize: 40,
+  separatorStrokeWidth: 2,
+  currentStepStrokeWidth: 3,
+  stepStrokeCurrentColor: '#222',
+  stepStrokeWidth: 1,
+  stepStrokeFinishedColor: '#fe7013',
+  stepStrokeUnFinishedColor: '#aaaaaa',
+  separatorFinishedColor: '#0d6851',
+  separatorUnFinishedColor: '#aaaaaa',
+  stepIndicatorFinishedColor: '#0d6851',
+  stepIndicatorUnFinishedColor: '#ffffff',
+  stepIndicatorCurrentColor: '#ffffff',
+  stepIndicatorLabelFontSize: 13,
+  currentStepIndicatorLabelFontSize: 13,
+  stepIndicatorLabelCurrentColor: '#222',
+  stepIndicatorLabelFinishedColor: '#ffffff',
+  stepIndicatorLabelUnFinishedColor: '#aaaaaa',
+  labelColor: '#999999',
+  labelSize: 13,
+  currentStepLabelColor: '#222'
+}
+
 var Header = React.createClass({
+  
   /**
    * ## Header.class
    * set the initial state of having the button be disabled.
@@ -132,6 +138,14 @@ var Header = React.createClass({
    * ```_updateStateButtonPress``` and away we go...
    *
    */
+  // constructor(props) {
+  //   super(props);
+
+  //   const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+  //   this.state = {
+  //     currentPage: 0
+  //   };
+  // },
   render () {
     let displayText
     if (this.props.showState) {
@@ -144,9 +158,10 @@ var Header = React.createClass({
 
           <TouchableHighlight onPress={this._onPressMark}>
 
-            <Image style={styles.mark}
-              source={require('../images/Snowflake.png')}
+            <Image style={styles.logotop}
+              source={require('../images/proximity.png')}
             />
+          
           </TouchableHighlight>
           {this.props.isFetching
            ? <ActivityIndicator animating size='large' />
@@ -177,4 +192,32 @@ var Header = React.createClass({
   }
 })
 
+/**
+ * ## Styles
+ */
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'column',
+    flex: 1,
+    marginTop: 10
+  },
+  header: {
+    marginTop: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'transparent'
+  },
+  logotop: {
+    backgroundColor: "transparent",
+    marginTop: 3,
+    height: 80,
+    width: 200,
+    resizeMode: 'contain'
+  },
+  mark: {
+    height: 100,
+    width: 100
+  }
+
+})
 module.exports = Header

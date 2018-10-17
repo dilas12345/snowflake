@@ -27,6 +27,7 @@ import {Actions} from 'react-native-router-flux'
  * The Header will display a Image and support Hot Loading
  */
 import Header from '../components/Header'
+import Dashboard from '../components/Dashboard'
 
 /**
  * The components needed from React
@@ -83,8 +84,8 @@ var styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   button: {
-    backgroundColor: '#FF3366',
-    borderColor: '#FF3366',
+    backgroundColor: '#222222',
+    borderColor: '#222222',
     marginLeft: 10,
     marginRight: 10
   }
@@ -117,6 +118,11 @@ class Main extends Component {
             currentState={this.props.global.currentState}
             onGetState={this.props.actions.getState}
             onSetState={this.props.actions.setState} />
+           {/* <Dashboard isFetching={this.props.auth.form.isFetching}
+            showState={this.props.global.showState}
+            currentState={this.props.global.currentState}
+            onGetState={this.props.actions.getState}
+            onSetState={this.props.actions.setState} /> */}
 
           <Button style={styles.button} onPress={this.handlePress.bind(this)}>
             {I18n.t('Main.navigate')}

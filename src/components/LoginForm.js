@@ -32,7 +32,8 @@ let Form = t.form.Form
 /**
  * ### Translations
  */
-var I18n = require('react-native-i18n')
+// var I18n = require('react-native-i18n')
+import I18n from 'react-native-i18n';
 import Translations from '../lib/Translations'
 I18n.translations = Translations
 
@@ -65,20 +66,46 @@ var LoginForm = React.createClass({
       }
     }
 
-    let username = {
-      label: I18n.t('LoginForm.username'),
+    let firstname = {
+      label: ('Firstname'),
       maxLength: 12,
       editable: !this.props.form.isFetching,
-      hasError: this.props.form.fields.usernameHasError,
-      error: this.props.form.fields.usernameErrorMsg
+      hasError: this.props.form.fields.firstnameHasError,
+      error: this.props.form.fields.firstnameErrorMsg
+    }
+    let surname = {
+      label: ('Surname'),
+      maxLength: 14,
+      editalbe: !this.props.form.isFetching,
+      hasError: this.props.form.fields.surnameHasError,
+      error: this.props.form.fields.surnameErrorMsg,
     }
 
-    let email = {
-      label: I18n.t('LoginForm.email'),
-      keyboardType: 'email-address',
+    let last6nin = {
+      label: ('Last 6 Digit of NIN'),
+      keyboardType: 'phone-pad',
+      maxLength: 6,
       editable: !this.props.form.isFetching,
-      hasError: this.props.form.fields.emailHasError,
-      error: this.props.form.fields.emailErrorMsg
+      hasError: this.props.form.fields.last6ninHasError,
+      error: this.props.form.fields.last6ninErrorMsg
+    }
+
+    let year = {
+      label: ('Year'),
+      keyboardType: 'phone-pad',
+      maxLength: 4,
+      editable: !this.props.form.isFetching,
+      hasError: this.props.form.fields.yearHasError,
+      error: this.props.form.fields.yearErrorMsg
+    }
+
+    let currentnumber = {
+      label: ('Current Number'),
+      keyboardType: 'phone-pad',
+      maxLength: 11,
+      editable: !this.props.form.isFetching,
+      hasError: this.props.form.fields.currentnumberHasError,
+      error: this.props.form.fields.currentnumberErrorMsg
     }
 
     let secureTextEntry = !this.props.form.fields.showPassword
@@ -105,25 +132,50 @@ var LoginForm = React.createClass({
     switch (formType) {
       /**
        * ### Registration
-       * The registration form has 4 fields
+       * The registration form has 4 fields could be more cause of extension
        */
       case (REGISTER):
+        // loginForm = t.struct({
+        //   username: t.String,
+        //   email: t.String,
+        //   password: t.String,
+        //   passwordAgain: t.String
+        // })
         loginForm = t.struct({
-          username: t.String,
-          email: t.String,
+          firstname: t.String,
+          surname: t.String,
+          last6nin: t.String,
+          year: t.String,
+          currentnumber: t.String,
           password: t.String,
           passwordAgain: t.String
         })
-        options.fields['username'] = username
-        options.fields['username'].placeholder = I18n.t('LoginForm.username')
-        options.fields['username'].autoCapitalize = 'none'
-        options.fields['email'] = email
-        options.fields['email'].placeholder = I18n.t('LoginForm.email')
-        options.fields['email'].autoCapitalize = 'none'
-        options.fields['password'] = password
-        options.fields['password'].placeholder = I18n.t('LoginForm.password')
+        // options.fields['username'] = username
+        // options.fields['username'].placeholder = I18n.t('LoginForm.username')
+        // options.fields['username'].autoCapitalize = 'none'
+        // options.fields['email'] = email
+        // options.fields['email'].placeholder = I18n.t('LoginForm.email')
+        // options.fields['email'].autoCapitalize = 'none'
+        // options.fields['password'] = password
+        // options.fields['password'].placeholder = I18n.t('LoginForm.password')
+        // options.fields['passwordAgain'] = passwordAgain
+        // options.fields['passwordAgain'].placeholder = I18n.t('LoginForm.password_again')
+        options.fields['firstname'] = firstname
+        options.fields['firstname'].placeholder = ('Firstname')
+        options.fields['firstname'].autoCapitalize = 'words'
+        options.fields['surname'] = surname
+        options.fields['surname'].placeholder = ('Surname')
+        options.fields['surname'].autoCapitalize = 'words'
+        options.fields['last6nin'] = last6nin
+        options.fields['last6nin'].placeholder = ('Last 6 digit of NIN')
+        options.fields['year'] = year
+        options.fields['year'].placeholder = ('Year')
+        options.fields['currentnumber'] = currentnumber
+        options.fields['currentnumber'].placeholder = ('Current Number')
+         options.fields['password'] = password
+        options.fields['password'].placeholder = ('Password')
         options.fields['passwordAgain'] = passwordAgain
-        options.fields['passwordAgain'].placeholder = I18n.t('LoginForm.password_again')
+        options.fields['passwordAgain'].placeholder = ('Password Again')
         break
 
       /**
@@ -150,9 +202,9 @@ var LoginForm = React.createClass({
         loginForm = t.struct({
           email: t.String
         })
-        options.fields['email'] = email
-        options.fields['email'].autoCapitalize = 'none'
-        options.fields['email'].placeholder = I18n.t('LoginForm.email')
+        options.fields['currentnumber'] = currentnumber
+        options.fields['currentnumber'].autoCapitalize = 'none'
+        options.fields['currentnumber'].placeholder = I18n.t('LoginForm.currentnumber')
         break
     } // switch
 

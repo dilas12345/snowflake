@@ -50,8 +50,8 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-function buttonPressHandler (signup, username, email, password) {
-  signup(username, email, password)
+function buttonPressHandler (signup, firstname, surname, last6nin, year, currentnumber, password) {
+  signup(firstname, surname, last6nin, year, currentnumber, password )
 }
 
 /**
@@ -66,9 +66,16 @@ let Register = React.createClass({
   render () {
     let loginButtonText = I18n.t('Register.register')
     let onButtonPress = buttonPressHandler.bind(null,
+                                                // this.props.actions.signup,
+                                                // this.props.auth.form.fields.username,
+                                                // this.props.auth.form.fields.email,
+                                                // this.props.auth.form.fields.password)
                                                 this.props.actions.signup,
-                                                this.props.auth.form.fields.username,
-                                                this.props.auth.form.fields.email,
+                                                this.props.auth.form.fields.firstname,
+                                                this.props.auth.form.fields.surname,
+                                                this.props.auth.form.fields.last6nin,
+                                                this.props.auth.form.fields.year,
+                                                this.props.auth.form.fields.currentnumber,
                                                 this.props.auth.form.fields.password)
 
     return (

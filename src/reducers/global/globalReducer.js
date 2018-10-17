@@ -14,6 +14,9 @@ const {
   SET_SESSION_TOKEN,
 
   GET_PROFILE_SUCCESS,
+
+  GET_USER_SUCCESS,
+
   SIGNUP_SUCCESS,
   LOGIN_SUCCESS,
   SESSION_TOKEN_SUCCESS,
@@ -58,6 +61,9 @@ export default function globalReducer (state = initialState, action) {
 
     case SESSION_TOKEN_SUCCESS:
       return state.set('currentUser', action.payload.sessionToken)
+
+    case GET_USER_SUCCESS:
+      return { ...state, loadingProfile: false, user: action.payload.data };
 
     /**
      * ### Clear currentUser

@@ -19,7 +19,8 @@ import { connect } from 'react-redux'
  * The actions we need
  */
 import * as profileActions from '../reducers/profile/profileActions'
-import * as globalActions from '../reducers/global/globalActions'
+import * as globalActions from '../reducers/global/globalActions';
+import {getUser} from '../reducers/profile/profileReducer';
 
 /**
  * The ErrorAlert will display any and all errors
@@ -110,11 +111,21 @@ class Profile extends Component {
     this.errorAlert = new ErrorAlert()
     this.state = {
       formValues: {
-        username: '',
-        email: ''
+        Firtname: '',
+        Surname: '',
+        Last6nin: '',
+        oldnumber: '',
+        currentNumber: '',
       }
     }
+    this.state = {
+      user: []
+    }
   }
+
+  static navigationOptions = {
+    title: 'Profile'
+  };
   /**
    * ### onChange
    *
@@ -124,10 +135,10 @@ class Profile extends Component {
    */
   onChange (value) {
     if (value.username !== '') {
-      this.props.actions.onProfileFormFieldChange('username', value.username)
+      this.props.actions.onProfileFormFieldChange('firstname', value.firstname)
     }
     if (value.email !== '') {
-      this.props.actions.onProfileFormFieldChange('email', value.email)
+      this.props.actions.onProfileFormFieldChange('surname', value.surname)
     }
     this.setState({value})
   }
@@ -140,8 +151,8 @@ class Profile extends Component {
   componentWillReceiveProps (props) {
     this.setState({
       formValues: {
-        username: props.profile.form.fields.username,
-        email: props.profile.form.fields.email
+        firstname: props.profile.form.fields.firstname,
+        surname: props.profile.form.fields.surname
       }
     })
   }
@@ -153,16 +164,22 @@ class Profile extends Component {
    * form fields.  Otherwise, we need to go fetch the fields
    */
   componentDidMount () {
-    if (this.props.profile.form.fields.username === '' && this.props.profile.form.fields.email === '') {
+    if (this.props.profile.form.fields.firstname === '' && this.props.profile.form.fields.surname === '') {
       this.props.actions.getProfile(this.props.global.currentUser)
     } else {
       this.setState({
         formValues: {
-          username: this.props.profile.form.fields.username,
-          email: this.props.profile.form.fields.email
+          firstname: this.props.profile.form.fields.firstname,
+          surname: this.props.profile.form.fields.surname
         }
       })
     }
+    getProfile(this.props.global.currentUser).then(data => {
+      this.setState({
+        currentUser: data 
+      });
+    })
+    // this.props.getUser('relferreira', 'react-native-redux');
   }
 
   /**
@@ -170,13 +187,17 @@ class Profile extends Component {
    * display the form wrapped with the header and button
    */
   render () {
+    // const { user, loadingProfile } = this.props;
+    // if (loadingProfile) return <Text>Loading...</Text>;
+
+    // const { firstname, middlename, surname, login } = user; 
     this.errorAlert.checkError(this.props.profile.form.error)
 
     let self = this
 
     let ProfileForm = t.struct({
-      username: t.String,
-      email: t.String
+      firstname: t.String,
+      surname: t.String
     })
     /**
      * Set up the field definitions.  If we're fetching, the fields
@@ -185,19 +206,18 @@ class Profile extends Component {
     let options = {
       auto: 'placeholders',
       fields: {
-        username: {
-          label: I18n.t('Profile.username'),
+        firstname: {
+          label: I18n.t('Profile.firstname'),
           maxLength: 12,
           editable: !this.props.profile.form.isFetching,
-          hasError: this.props.profile.form.fields.usernameHasError,
-          error: this.props.profile.form.fields.usernameErrorMsg
+          hasError: this.props.profile.form.fields.firstnameHasError,
+          error: this.props.profile.form.fields.firstnameErrorMsg
         },
-        email: {
-          label: I18n.t('Profile.email'),
-          keyboardType: 'email-address',
+        surname: {
+          label: I18n.t('Profile.surname'),
           editable: !this.props.profile.form.isFetching,
-          hasError: this.props.profile.form.fields.emailHasError,
-          error: this.props.profile.form.fields.emailErrorMsg
+          hasError: this.props.profile.form.fields.surnameHasError,
+          error: this.props.profile.form.fields.surnameErrorMsg
         }
       }
     }
@@ -211,8 +231,8 @@ class Profile extends Component {
     let onButtonPress = () => {
       this.props.actions.updateProfile(
         this.props.profile.form.originalProfile.objectId,
-        this.props.profile.form.fields.username,
-        this.props.profile.form.fields.email,
+        this.props.profile.form.fields.firstname,
+        this.props.profile.form.fields.surname,
         this.props.global.currentUser)
     }
     /**
@@ -242,7 +262,14 @@ class Profile extends Component {
           />
           <ItemCheckbox text={verfiedText}
             disabled
-            checked={this.props.profile.form.fields.emailVerified} />
+            checked={this.props.profile.form.fields.surname} />
+        </View>
+
+        <View>
+          <Text>Firtname: {firstname}</Text>
+          <Text>Middlename: {middlename}</Text>
+          <Text>Surname: {surname}</Text>
+          <Text>Login: {login}</Text>
         </View>
 
         <FormButton
@@ -254,4 +281,13 @@ class Profile extends Component {
     )
   }
 }
+
+const mapStateToProps = ({ user, loadingProfile }) => ({
+  user,
+  loadingProfile
+});
+
+const mapDispatchToProps = {
+  getUser
+};
 export default connect(mapStateToProps, mapDispatchToProps)(Profile)

@@ -18,6 +18,26 @@ const {
   PROFILE_UPDATE_SUCCESS,
   PROFILE_UPDATE_FAILURE,
 
+  GET_PROFILE_REPOS,
+  GET_PROFILE_REPOS_SUCCESS,
+  GET_PROFILE_REPOS_FAIL,
+
+  GET_PROFILE_REPO_INFO,
+  GET_PROFILE_REPO_INFO_SUCCESS,
+  GET_PROFILE_REPO_INFO_FAIL,
+
+  GET_ID_NUMBER,
+  GET_ID_NUMBER_SUCCESS,
+  GET_ID_NUMBER_FAIL,
+
+  GET_QRCODE,
+  GET_QRCODE_SUCCESS,
+  GET_QRCODE_FAIL,
+
+  GET_USER,
+  GET_USER_SUCCESS,
+  GET_USER_FAIL,
+
   ON_PROFILE_FORM_FIELD_CHANGE
 } = require('../../lib/constants').default
 
@@ -48,6 +68,65 @@ export function getProfileFailure (json) {
     payload: json
   }
 }
+
+/***
+ * This fetches the information about the current user and display on the user's screen
+*/
+export function listRepos(user) {
+  return {
+    type: GET_PROFILE_REPOS,
+    payload: {
+      request: {
+        url: `https://vsc.ibib.io:7071/verify?r=p`
+      }
+    }
+  };
+}
+
+export function getRepoDetail(user, repo) {
+  return {
+    type: GET_PROFILE_REPO_INFO,
+    payload: {
+      request: {
+        url: `https://vsc.ibib.io:7071/verify?r=p`
+      }
+    }
+  };
+}
+
+export function getUser(user) {
+  return {
+    type: GET_USER,
+    payload: {
+      request: {
+        url: `https://vsc.ibib.io:7071/verify?r=p`
+      }
+    }
+  };
+}
+
+export function getIdnumber(user) {
+  return {
+    type: GET_ID_NUMBER,
+    payload: {
+      request: {
+        url: `/users/${user}`
+      }
+    }
+  };
+}
+
+export function getQrcode(user) {
+  return {
+    type: GET_QRCODE,
+    payload: {
+      request: {
+        url: `https://vsc.ibib.io:7071/verify?r=v&h=${hash}&u=${userid}&l=${idlevel}&i=${idnumber}&c=${crihash}`
+      }
+    }
+  };
+}
+
 /**
  * ## State actions
  * controls which form is displayed to the user
@@ -93,8 +172,18 @@ export function profileUpdateFailure (json) {
 /**
  * ## updateProfile
  * @param {string} userId -  objectId
- * @param {string} username - the users name
- * @param {string] email - user's email
+ * @param {string} firstname - the users name
+ * @param {string} surname - the user surname
+ * @param {string] year - user's mobile
+ * @param {string} currentnumber - user's mobileAgain,
+ * @param {string} nin
+ * @param {string} userid - user's userID
+ * @param {string} dob
+ * @param {string} idnumber
+ * @param {string} gender
+ * @param {string} expiry
+ * @param {string} nationality
+ * 
  * @param {Object} sessionToken - the sessionToken
  *
  * The sessionToken is provided when Hot Loading.
@@ -104,15 +193,25 @@ export function profileUpdateFailure (json) {
  * the data as now persisted on the serverx
  *
  */
-export function updateProfile (userId, username, email, sessionToken) {
+export function updateProfile (userId, firstname, surname, last6nin, year, nin, userid, gender, expiry, nationality, sessionToken) {
   return dispatch => {
     dispatch(profileUpdateRequest())
     return appAuthToken.getSessionToken(sessionToken)
       .then((token) => {
         return BackendFactory(token).updateProfile(userId,
           {
-            username: username,
-            email: email
+            firstname: firstname,
+            surname: surname,
+            last6nin: last6nin,
+            dob: dob,
+            year: year,
+            currentnumber: currentnumber,
+            nin: nin,
+            userid: userid,
+            gender: gender,
+            expiry: expiry,
+            nationality: nationality
+            
           }
         )
       })

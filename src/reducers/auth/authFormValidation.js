@@ -31,17 +31,24 @@ export default function formValidation (state) {
     case LOGOUT:
       return state.setIn(['form', 'isValid'], true)
     /**
-     * ### Registration has 4 fields
+     * ### Registration has 6 fields
      */
     case REGISTER:
-      if (state.form.fields.username !== '' &&
-          state.form.fields.email !== '' &&
+      if (state.form.fields.firstname !== '' &&
+          state.form.fields.surname !== '' &&
+          state.form.fields.last6nin !== '' &&
+          state.form.fields.year !== '' &&
+          state.form.fields.currentnumber !== '' &&
           state.form.fields.password !== '' &&
           state.form.fields.passwordAgain !== '' &&
-          !state.form.fields.usernameHasError &&
-          !state.form.fields.emailHasError &&
+          !state.form.fields.firstnameHasError &&
+          !state.form.fields.surnameHasError &&
+          !state.form.fields.last6ninHasError &&
+          !state.form.fields.yearHasError &&
+          !state.form.fields.currentnumberHasError&&
           !state.form.fields.passwordHasError &&
-        !state.form.fields.passwordAgainHasError) {
+          !state.form.fields.passwordAgainHasError)
+           {
         return state.setIn(['form', 'isValid'], true)
       } else {
         return state.setIn(['form', 'isValid'], false)
@@ -62,8 +69,8 @@ export default function formValidation (state) {
      * ### Reset password has 1 field
      */
     case FORGOT_PASSWORD:
-      if (state.form.fields.email !== '' &&
-        !state.form.fields.emailHasError) {
+      if (state.form.fields.currentnumber !== '' &&
+        !state.form.fields.currentnumberHasError) {
         return state.setIn(['form', 'isValid'], true)
       } else {
         return state.setIn(['form', 'isValid'], false)

@@ -84,10 +84,11 @@ export default function authReducer (state = initialState, action) {
       return formValidation(
       state.setIn(['form', 'state'], action.type)
         .setIn(['form', 'error'], null)
-        .setIn(['form', 'fields', 'username'], '')
-        .setIn(['form', 'fields', 'email'], '')
-        .setIn(['form', 'fields', 'password'], '')
-        .setIn(['form', 'fields', 'passwordAgain'], '')
+        .setIn(['form', 'fields', 'firstname'], '')
+        .setIn(['form', 'fields', 'surname'], '')
+        .setIn(['form', 'fields', 'last6nin'], '')
+        .setIn(['form', 'fields', 'year'], '')
+        .setIn(['form', 'fields', 'currentnumber'], '')
     )
 
     /**
@@ -153,16 +154,22 @@ export default function authReducer (state = initialState, action) {
      */
     case SET_STATE:
       var form = JSON.parse(action.payload).auth.form
-
+      console.error({json});
       var next = state.setIn(['form', 'state'], form.state)
           .setIn(['form', 'disabled'], form.disabled)
           .setIn(['form', 'error'], form.error)
           .setIn(['form', 'isValid'], form.isValid)
           .setIn(['form', 'isFetching'], form.isFetching)
-          .setIn(['form', 'fields', 'username'], form.fields.username)
-          .setIn(['form', 'fields', 'usernameHasError'], form.fields.usernameHasError)
-          .setIn(['form', 'fields', 'email'], form.fields.email)
-          .setIn(['form', 'fields', 'emailHasError'], form.fields.emailHasError)
+          .setIn(['form', 'fields', 'firstname'], form.fields.firstname)
+          .setIn(['form', 'fields', 'firstnameHasError'], form.fields.firstnameHasError)
+          .setIn(['form', 'fields', 'surname'], form.fields.surname)
+          .setIn(['form', 'fields', 'surnameHasError'], form.fields.surnameHasError)
+          .setIn(['form', 'fields', 'last6nin'], form.fields.last6nin)
+          .setIn(['form', 'fields', 'last6ninHasError'], form.fields.last6ninHasError)
+          .setIn(['form', 'fields', 'year'], form.fields.year)
+          .setIn(['form', 'fields', 'yearHasError'], form.fields.yearHasError)
+          .setIn(['form', 'fields', 'currentnumber'], form.fields.currentnumber)
+          .setIn(['form', 'fields', 'currentnumberHasError'], form.fields.currentnumberHasError)
           .setIn(['form', 'fields', 'password'], form.fields.password)
           .setIn(['form', 'fields', 'passwordHasError'], form.fields.passwordHasError)
           .setIn(['form', 'fields', 'passwordAgain'], form.fields.passwordAgain)

@@ -53,7 +53,13 @@ const BackendFactory = require('../../lib/BackendFactory').default
 
 import {Actions} from 'react-native-router-flux'
 
-import {appAuthToken} from '../../lib/AppAuthToken'
+import {appAuthToken} from '../../lib/AppAuthToken';
+
+// import sha256 from '.../../hashes/sha256';
+
+// import mkMRZ from '../../hashes/MHZ';
+
+import {hex_rmd160} from '../../hashes/ripemd160';
 
 const _ = require('underscore')
 
@@ -265,36 +271,111 @@ export function saveSessionToken (json) {
 }
 /**
  * ## signup
- * @param {string} username - name of user
- * @param {string} email - user's email
- * @param {string} password - user's password
+ * @param {string} firstname - name of firstname
+ * @param {string} surname - user's surname
+ * @param {string} last6nin - user's lasy6nin
+ * @param {string} year - user's year
+ * @param {string} currentnumber - user's currentnumber
+ * @param {string} password - users password
  *
  * Call the server signup and if good, save the sessionToken,
  * set the state to logout and signal success
  *
  * Otherwise, dispatch the error so the user can see
  */
-export function signup (username, email, password) {
+// export function signup (username, email, password) {
+//   return dispatch => {
+//     dispatch(signupRequest())
+//     return BackendFactory().signup({
+//       username: username,
+//       email: email,
+//       password: password
+//     })
+
+//       .then((json) => {
+//         return saveSessionToken(
+//           Object.assign({}, json,
+//             { username: username,
+//               email: email
+//             })
+//           )
+//           .then(() => {
+//             dispatch(signupSuccess(
+//               Object.assign({}, json,
+//                { username: username,
+//                  email: email
+//                })
+//             ))
+//             dispatch(logoutState())
+//             // navigate to Tabbar
+//             Actions.Tabbar()
+//           })
+//       })
+//       .catch((error) => {
+//         dispatch(signupFailure(error))
+//       })
+//   }
+// }
+
+export function bundleDigest(password) {
+  // Use this to perform doubleSHA and RIPEMD160!
+  let shaObj = new jsSHA("SHA-256", "TEXT");
+  let shaObj2 = new jsSHA("SHA-256", "TEXT");
+  shaObj.update(password);
+  let s1 = shaObj.getHash("HEX");
+  shaObj2.update(s1);
+  let s2 = shaObj2.getHash("HEX");
+  // return hex_rmd160(s2);
+  return hex_rmd160(s2).singup({
+    password: password
+  })
+}
+export function signup (firstname, surname, last6nin, year, currentnumber, password) {
+  // sha256("password").then( hash => {
+  //   console.log(hash);
+  // })
   return dispatch => {
     dispatch(signupRequest())
+    //console.error({BackendFactory});
     return BackendFactory().signup({
-      username: username,
-      email: email,
+      firstname: firstname,
+      surname: surname,
+      last6nin: last6nin,
+      year: year,
+      currentnumber: currentnumber,
       password: password
     })
 
-      .then((json) => {
+      .then((json) => { 
+        //console.error(saveSessionToken)
         return saveSessionToken(
           Object.assign({}, json,
-            { username: username,
-              email: email
+            { firstname: firstname,
+              surname: surname,
+              last6nin: last6nin,
+              year: year,
+              currentnumber: currentnumber,
+              // dob:dob,
+              // userid: userid,
+              // idnumber: idnumber,
+              // expiry: expiry,
+              // nationality: nationality
+              
             })
           )
           .then(() => {
             dispatch(signupSuccess(
               Object.assign({}, json,
-               { username: username,
-                 email: email
+               { firstname: firstname,
+                 surname: surname,
+                 last6nin: last6nin,
+                 year: year,
+                 currentnumber: currentnumber,
+                //  dob:dob,
+                //  userid: userid,
+                //  idnumber: idnumber,
+                //  expiry: expiry,
+                //  nationality: nationality
                })
             ))
             dispatch(logoutState())
@@ -307,7 +388,6 @@ export function signup (username, email, password) {
       })
   }
 }
-
 /**
  * ## Login actions
  */
@@ -343,6 +423,9 @@ export function loginFailure (error) {
  */
 
 export function login (username, password) {
+  // sha256("password").then( hash => {
+  //   console.log(hash);
+  // })
   return dispatch => {
     dispatch(loginRequest())
     return BackendFactory().login({
@@ -368,28 +451,28 @@ export function login (username, password) {
 /**
  * ## ResetPassword actions
  */
-export function resetPasswordRequest () {
-  return {
-    type: RESET_PASSWORD_REQUEST
-  }
-}
+// export function resetPasswordRequest () {
+//   return {
+//     type: RESET_PASSWORD_REQUEST
+//   }
+// }
 
-export function resetPasswordSuccess () {
-  return {
-    type: RESET_PASSWORD_SUCCESS
-  }
-}
+// export function resetPasswordSuccess () {
+//   return {
+//     type: RESET_PASSWORD_SUCCESS
+//   }
+// }
 
-export function resetPasswordFailure (error) {
-  return {
-    type: RESET_PASSWORD_FAILURE,
-    payload: error
-  }
-}
+// export function resetPasswordFailure (error) {
+//   return {
+//     type: RESET_PASSWORD_FAILURE,
+//     payload: error
+//   }
+// }
 /**
  * ## ResetPassword
  *
- * @param {string} email - the email address to reset password
+ * @param {string} currentnumber - the email address to reset password
  * *Note* There's no feedback to the user whether the email
  * address is valid or not.
  *
@@ -398,19 +481,20 @@ export function resetPasswordFailure (error) {
  * With that enabled, an email can be sent w/ a
  * form for setting the new password.
  */
-export function resetPassword (email) {
-  return dispatch => {
-    dispatch(resetPasswordRequest())
-    return BackendFactory().resetPassword({
-      email: email
-    })
-      .then(() => {
-        dispatch(loginState())
-        dispatch(resetPasswordSuccess())
-        Actions.Login()
-      })
-      .catch((error) => {
-        dispatch(resetPasswordFailure(error))
-      })
-  }
-}
+// export function resetPassword (currentnumber) {
+//   return dispatch => {
+//     dispatch(resetPasswordRequest())
+//     console.error(BackendFactory);
+//     return BackendFactory().resetPassword({
+//       currentnumber: currentnumber
+//     })
+//       .then(() => {
+//         dispatch(loginState())
+//         dispatch(resetPasswordSuccess())
+//         Actions.Login()
+//       })
+//       .catch((error) => {
+//         dispatch(resetPasswordFailure(error))
+//       })
+//   }
+// }

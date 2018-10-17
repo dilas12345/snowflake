@@ -1,6 +1,6 @@
 'use strict'
 
-import snowflake from './src/snowflake'
+import vscproximity from './src/vscproximity'
 
-snowflake('android')
+vscproximity('android')
 

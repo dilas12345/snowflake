@@ -69,7 +69,8 @@ var {height, width} = Dimensions.get('window') // Screen dimensions in current o
 const {
   LOGIN,
   REGISTER,
-  FORGOT_PASSWORD
+  FORGOT_PASSWORD,
+  BACK
 } = require('../lib/constants').default
 
 /**
@@ -85,6 +86,28 @@ var styles = StyleSheet.create({
     marginBottom: 10,
     marginLeft: 10,
     marginRight: 10
+  },
+  submit:{
+        marginTop: 0,
+        paddingTop: 5,
+        paddingBottom:15,
+        marginLeft:40,
+        marginRight:40,
+        width: 100,
+        height: 40,
+        backgroundColor:'#2B2B26',
+        borderRadius:10,
+        borderWidth: 1,
+        borderColor: '#fff'
+      },
+    
+  submitText:{
+      color:'#fff',
+      textAlign:'center',
+      fontSize: 20,
+  },
+  buttonText: {
+    color: '#fff'
   },
   forgotContainer: {
     flexDirection: 'row',
@@ -108,18 +131,30 @@ function mapDispatchToProps (dispatch) {
  */
 var I18n = require('react-native-i18n')
 import Translations from '../lib/Translations'
+import Backend from '../lib/Backend';
 I18n.translations = Translations
 
 class LoginRender extends Component {
   constructor (props) {
     super(props)
+    //console.error(this.errorAlert);
     this.errorAlert = new ErrorAlert()
     this.state = {
+      // value: {
+      //   username: this.props.auth.form.fields.username,
+      //   email: this.props.auth.form.fields.email,
+      //   password: this.props.auth.form.fields.password,
+      //   passwordAgain: this.props.auth.form.fields.passwordAgain
+      // }
       value: {
-        username: this.props.auth.form.fields.username,
-        email: this.props.auth.form.fields.email,
+        firstname: this.props.auth.form.fields.firstname,
+        surname: this.props.auth.form.fields.surname,
+        last6nin: this.props.auth.form.fields.last6nin,
+        year: this.props.auth.form.fields.year,
+        currentnumber: this.props.auth.form.fields.currentnumber,
         password: this.props.auth.form.fields.password,
         passwordAgain: this.props.auth.form.fields.passwordAgain
+
       }
     }
   }
@@ -130,9 +165,18 @@ class LoginRender extends Component {
    */
   componentWillReceiveProps (nextprops) {
     this.setState({
+      // value: {
+      //   username: nextprops.auth.form.fields.username,
+      //   email: nextprops.auth.form.fields.email,
+      //   password: nextprops.auth.form.fields.password,
+      //   passwordAgain: nextprops.auth.form.fields.passwordAgain
+      // }
       value: {
-        username: nextprops.auth.form.fields.username,
-        email: nextprops.auth.form.fields.email,
+        firstname: nextprops.auth.form.fields.firstname,
+        surname: nextprops.auth.form.fields.surname,
+        last6nin: nextprops.auth.form.fields.last6nin,
+        year: nextprops.auth.form.fields.year,
+        currentnumber: nextprops.auth.form.fields.currentnumber,
         password: nextprops.auth.form.fields.password,
         passwordAgain: nextprops.auth.form.fields.passwordAgain
       }
@@ -148,19 +192,45 @@ class LoginRender extends Component {
    * meet the requirements.
    * *Note* that the fields are validated by the authReducer
    */
+  // onChange (value) {
+  //   if (value.username !== '') {
+  //     this.props.actions.onAuthFormFieldChange('username', value.username)
+  //   }
+  //   if (value.email !== '') {
+  //     this.props.actions.onAuthFormFieldChange('email', value.email)
+  //   }
+  //   if (value.password !== '') {
+  //     this.props.actions.onAuthFormFieldChange('password', value.password)
+  //   }
+  //   if (value.passwordAgain !== '') {
+  //     this.props.actions.onAuthFormFieldChange('passwordAgain', value.passwordAgain)
+  //   }
+  //   this.setState(
+  //     {value}
+  //   )
+  // }
   onChange (value) {
-    if (value.username !== '') {
-      this.props.actions.onAuthFormFieldChange('username', value.username)
+    if (value.firstname !== '') {
+      this.props.actions.onAuthFormFieldChange('firstname', value.firstname)
     }
-    if (value.email !== '') {
-      this.props.actions.onAuthFormFieldChange('email', value.email)
+    if (value.surname !== '') {
+      this.props.actions.onAuthFormFieldChange('surname', value.surname)
+    }
+    if (value.last6nin !== '') {
+      this.props.actions.onAuthFormFieldChange('last6nin', value.last6nin)
+    }
+    if (value.year !== '') {
+      this.props.actions.onAuthFormFieldChange('year', value.year)
+    }
+    if (value.currentnumber !== '') {
+      this.props.actions.onAuthFormFieldChange('currentnumber', value.currentnumber)
     }
     if (value.password !== '') {
-      this.props.actions.onAuthFormFieldChange('password', value.password)
-    }
+        this.props.actions.onAuthFormFieldChange('password', value.password)
+      }
     if (value.passwordAgain !== '') {
-      this.props.actions.onAuthFormFieldChange('passwordAgain', value.passwordAgain)
-    }
+        this.props.actions.onAuthFormFieldChange('passwordAgain', value.passwordAgain)
+      }
     this.setState(
       {value}
     )
@@ -190,13 +260,31 @@ class LoginRender extends Component {
       </TouchableHighlight>
 
     let register =
-      <TouchableHighlight
-        onPress={() => {
-          actions.registerState()
-          Actions.Register()
-        }} >
-        <Text>{I18n.t('LoginRender.register')}</Text>
-      </TouchableHighlight>
+      // <TouchableHighlight
+      //   onPress={() => {
+      //     actions.registerState()
+      //     Actions.Register()
+      //   }} >
+      //   <Text>{I18n.t('LoginRender.register')}</Text>
+      // </TouchableHighlight>
+
+      <View style={{flexDirection: 'row', backgroundColor: 'transparent', justifyContent: 'center', height: 70, shadowOffset: {height: 0, width: 0}, shadowOpacity: 0, elevation: 0}}>
+        <View style={{margin: 5, backgroundColor: 'transparent',}}>
+          <TouchableHighlight style={styles.submit}>
+            <Text style={styles.submitText}>Quit</Text>
+          </TouchableHighlight>
+        </View>
+        <View style={{margin: 5, backgroundColor: 'transparent',}}>
+        <TouchableHighlight style={styles.submit} onPress={() => {
+              actions.registerState()
+              Actions.Next()
+          }} >
+        <Text>{I18n.t('LoginRender.register')}</Text>>
+          <Text style={styles.submitText}>Next</Text>
+        </TouchableHighlight>
+        </View>
+      </View>
+
 
     switch (messageType) {
       case FORGOT_PASSWORD:
@@ -205,6 +293,8 @@ class LoginRender extends Component {
         return alreadyHaveAccount
       case REGISTER:
         return register
+      // case BACK:
+      //   return back
     }
   }
 
@@ -270,13 +360,17 @@ class LoginRender extends Component {
                 form={this.props.auth.form}
                 value={this.state.value}
                 onChange={self.onChange.bind(self)} />
-              {passwordCheckbox}
+              {/* {passwordCheckbox} */}
             </View>
 
             <FormButton
               isDisabled={!this.props.auth.form.isValid || this.props.auth.form.isFetching}
               onPress={onButtonPress}
-              buttonText={loginButtonText} />
+              buttonText={loginButtonText}
+               />
+            {/* <FormButton 
+              onPress={onButtonPress}
+              backButtonText={backButtonText}/> */}
 
             <View >
               <View style={styles.forgotContainer}>

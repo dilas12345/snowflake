@@ -17,7 +17,7 @@ export default class Backend {
    *
    * @param data object
    *
-   * {username: "barton", email: "foo@gmail.com", password: "Passw0rd!"}
+   * {firstname: "che", surname: "Yusuph", last6nin: "123456!", oldnumber: "07089068401", currentnumber: "07089068401"}
    *
    * @return
    * if ok, {createdAt: "2015-12-30T15:17:05.379Z",
@@ -35,16 +35,19 @@ export default class Backend {
    *
    * @param data
    *
-   *  {username: "barton", password: "Passw0rd!"}
+   *  {firstname: "che", surname: "Yusuph", last6nin: "123456!", oldnumber: "07089068401", currentnumber: "07089068401"}
    *
    * @returns
    *
    * createdAt: "2015-12-30T15:29:36.611Z"
-   * email: "barton@foo.com"
+   * firstname: "che"
+   * surname: "Yusuph"
+   * registered: "07089068401"
+   * currentnumber: "07089068401"
    * objectId: "Z4yvP19OeL"
    * sessionToken: "r:Kt9wXIBWD0dNijNIq2u5rRllW"
    * updatedAt: "2015-12-30T16:08:50.419Z"
-   * username: "barton"
+   * las6nin: "123456"
    *
    */
   login (data) {
@@ -62,7 +65,7 @@ export default class Backend {
    * the data is already in a JSON format, so call _fetch
    *
    * @param data
-   * {email: "barton@foo.com"}
+   * {firstname: "che"}
    *
    * @returns empty object
    *
@@ -80,11 +83,14 @@ export default class Backend {
    *
    * if good:
    * {createdAt: "2015-12-30T15:29:36.611Z"
-   *  email: "barton@acclivyx.com"
+   *  firstname: "che"
+   *  surname: "Yusuph"
+   *  registered: "07089068401"
+   *  currentnumber: "07089068401"
    *  objectId: "Z4yvP19OeL"
    *  sessionToken: "r:uFeYONgIsZMPyxOWVJ6VqJGqv"
    *  updatedAt: "2015-12-30T15:29:36.611Z"
-   *  username: "barton"}
+   *  las6nin: "123456"}
    *
    * if error, {code: xxx, error: 'message'}
    */
@@ -97,7 +103,7 @@ export default class Backend {
    *
    * @param userId
    * @param data object:
-   * {username: "barton", email: "barton@foo.com"}
+   * {firstname: "che", surname: "Yusuph", last6nin: "123456!", oldnumber: "07089068401", currentnumber: "07089068401"}
    */
   updateProfile (userId, data) {
   }
